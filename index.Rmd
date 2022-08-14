@@ -8,22 +8,51 @@ date: '2022-08-13'
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r, include = FALSE}
+source("analysis.R", local = knitr::knit_global())
 ```
 
-## Including Plots
+## Introduction 
+* Ever since the development of organized policing in America, the U.S. enters modern times in which it must couple with the fact that its structures of law enforcement were built to severely restrict humans rights towards people of color, particularly Black people. As protest numbers towards fighting against racial inequities, police brutality, and civil rights issues increase, it becomes all the more imperative to reassess police agencies and prisons across the country to target the many cracks that remain in the justice system. The Vera Institute has worked towards compiling information on incarceration trends since 1978 through the use of COJ and ASJ datasets in an effort to reveal disproportionalities in jail/prison populations, admission rates, release rates, and more at the county level. Analysis in this report makes use of said data.
+* The following report aims to highlight differences between white and black jail/prison populations in particular. Variables of interest include: **black jail population, white jail population, total black population ages 15-64, total white population ages 15-64, black jail admissions, white jail admissions, total jail admissions, black prison populations, and white prison populations**. Numerous media sources tend to form comparisons between whites and blacks in America regarding incarceration, which resulted in personal curiosity to determine _if most disparities were caused by the most populous states_, _if admission rates were fairly equal between white and black in comparison to their respective population totals by race as well as by total admission rates in general_, and _if there is reason to suspect of underreporting or a lack of transparency in the data_. As a result, incarceration will be measured based off of jail populations and prison populations averaged over the years 2000-2018 from the culmination of all county data for state-level analysis, as well as by admission number totals using the same process. This report hopes to answer some of the following questions or curiosities given the variables of choice:
+  + Have there been any dramatic changes in prison population by race in the most populous states?
+  + Are the most populous states "to blame" for incarceration disparities, or should efforts be focused elsewhere?
+  + Relative to a race's population in a state, is the admission rate to prison excessively high or low?
+  + For each black prison admission in a state, how many white prison admissions are there?
+  + Are there certain states that lack accountability in reporting prison data? Why is that?
+  + When factoring in the racial makeup by percentage of the U.S., are prison populations on average evenly distributed between whites and blacks? 
 
-You can also embed plots, for example:
+## Summary Information
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+## Plots
+
+### Trends Over Time
+
+```{r black_jail_pop_viz, echo= FALSE, message = FALSE, fig.height= 7, fig.width = 11}
+black_jail_pop_viz
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r white_jail_pop_viz, echo= FALSE, message = FALSE, fig.height= 7, fig.width = 11}
+white_jail_pop_viz
+```
+
+### Variable Comparison 
+
+```{r white_vs_black_adm_prop_interactive, echo= FALSE, message = FALSE, fig.height = 5, fig.width = 11}
+white_vs_black_adm_prop_interactive
+```
+
+```{r black_prop_vs_white_prop_interactive, echo= FALSE, message = FALSE, fig.height = 5, fig.width = 11}
+black_prop_vs_white_prop_interactive
+```
+
+### Map 
+
+```{r, echo= FALSE, message = FALSE}
+avg_blk_prison_us_map
+```
+
+```{r, echo= FALSE, message = FALSE}
+avg_white_prison_us_map
+```
