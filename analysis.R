@@ -547,8 +547,65 @@ avg_white_prison_us_map <- ggplotly(plot_usmap(data = white_prison_pop_us,
 avg_white_prison_us_map
 
 
+################################### SUMMARY STATISTICS
 
+#What state has had the largest average proportion of black admissions compared 
+#to the black population? What is the proportion?
+#USE PROPORTIONAL ADMISSIONS DATAFRAME
 
+#To get the largest blackadm/blackpopulation
+largest_avg_black_adm <- max(proportional_admissions$Popn_Proportional_Black_Admissions)
+#To get the state with that value
+state_with_largest_avg_black_adm <- row.names(proportional_admissions[which(proportional_admissions$Popn_Proportional_Black_Admissions == largest_avg_black_adm),])
 
+#How many states have all null values for white prison population from 2000 to 2018?
+#USE WHITE PRISON POP US DATAFRAME
+
+#Filter the dataframe to only the rows with 0s, which prior analysis indicated was NA and we changed this into 0
+states_with_null_white_prison_pop <- filter(white_prison_pop_us, Average_White_Prison_Population == 0.0000)
+#Get number of rows for number of states with null values
+num_states_null_white_prison_pop <- nrow(states_with_null_white_prison_pop)
+
+#How many states have all null values for black prison population from 2000 to 2018?
+#USE BLACK PRISON POP US DATAFRAME
+
+#Filter the dataframe to only the rows with 0s, which prior analysis indicated was NA and we changed this into 0
+states_with_null_black_prison_pop <- filter(black_prison_pop_us, Average_Black_Prison_Population == 0.0000)
+#Get number of rows for number of states with null values
+num_states_null_black_prison_pop <- nrow(states_with_null_black_prison_pop)
+
+#What state has had the greatest difference in average white jail population between 2000 and 2018?
+#What is that difference?
+
+#Add column to dataframe that takes difference between population 2018 and population in 2000
+white_jail_pop_sum_with_diff <- mutate(white_jail_pop_sum,
+                                       diff_2000_2018 = white_jail_pop_sum[,19] - white_jail_pop_sum[,1])
+#Get the largest difference in population
+largest_white_jail_pop_diff <- max(white_jail_pop_sum_with_diff$diff_2000_2018)
+#Find the state with the largest difference
+state_with_largest_white_jail_pop_diff <- row.names(white_jail_pop_sum_with_diff[which(white_jail_pop_sum_with_diff$diff_2000_2018 == largest_white_jail_pop_diff),])
+
+#What state has had the greatest difference in average black jail population between 2000 and 2018?
+#What is that difference?
+
+#Add column to dataframe that takes difference between population 2018 and population in 2000
+black_jail_pop_sum_with_diff <- mutate(black_jail_pop_sum,
+                                       diff_2000_2018 = black_jail_pop_sum[,19] - black_jail_pop_sum[,1])
+#Get the largest difference in population
+largest_black_jail_pop_diff <- max(black_jail_pop_sum_with_diff$diff_2000_2018)
+#Find the state with the largest difference
+state_with_largest_black_jail_pop_diff <- row.names(black_jail_pop_sum_with_diff[which(black_jail_pop_sum_with_diff$diff_2000_2018 == largest_black_jail_pop_diff),])
+
+#Put summary values into a list
+summary_incarceration_variables_list <- list(
+  largest_avg_black_adm,
+  state_with_largest_avg_black_adm,
+  num_states_null_white_prison_pop,
+  num_states_null_black_prison_pop,
+  largest_white_jail_pop_diff,
+  state_with_largest_white_jail_pop_diff,
+  largest_black_jail_pop_diff,
+  state_with_largest_black_jail_pop_diff
+)
 
 
